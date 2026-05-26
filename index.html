@@ -517,7 +517,7 @@ body{
      MUSIC
 ========================= -->
 
-<audio id="music" loop>
+<audio id="music" loop playsinline>
     <source src="love.mp3" type="audio/mpeg">
 </audio>
 
@@ -530,25 +530,38 @@ body{
 const music = document.getElementById("music");
 
 /* =========================
-   AUTOPLAY FIX
+   AUTOPLAY FIX MOBILE
 ========================= */
 
-function playMusic(){
+async function startMusic(){
 
-    music.play().catch(() => {});
+    try{
 
-    document.removeEventListener("click", playMusic);
-    document.removeEventListener("touchstart", playMusic);
+        music.volume = 1;
+        music.muted = false;
+
+        await music.play();
+
+        // hapus listener setelah berhasil
+        document.removeEventListener("click", startMusic);
+        document.removeEventListener("touchstart", startMusic);
+
+    }catch(err){
+        console.log("Autoplay blocked");
+    }
 }
 
-document.addEventListener("click", playMusic);
-document.addEventListener("touchstart", playMusic);
+/* mobile lebih stabil pakai touchend */
+document.addEventListener("touchend", startMusic);
+document.addEventListener("click", startMusic);
 
 /* =========================
    PAGE SWITCH
 ========================= */
 
 function showPage(currentPage, nextPage){
+
+    startMusic(); // paksa play lagi saat tombol dipencet
 
     document
     .getElementById(currentPage)
