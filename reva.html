@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f092be;
+    font-family:'Indie Flower', cursive;
+    overflow-x:hidden;
+    text-align:center;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+    padding-top:40px;
+}
+
+.page.active{
+    display:block;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    position:relative;
+    width:300px;
+    height:400px;
+    margin:40px auto 20px;
+    color:#013243;
+    background:#e0e1dc;
+
+    transform-style:preserve-3d;
+    transform:perspective(2000px);
+
+    box-shadow:
+    inset 400px 0 50px rgba(0,0,0,.5),
+    20px 0 60px rgba(0,0,0,.5);
+
+    transition:1.5s;
+}
+
+.card:hover{
+    transform:
+    perspective(2000px)
+    rotate(10deg)
+    scale(1.08);
+
+    box-shadow:
+    inset 20px 0 50px rgba(0,0,0,.5),
+    0 10px 100px rgba(0,0,0,.5);
+}
+
+.imgBox{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-origin:left;
+    transition:.7s;
+}
+
+.card:hover .imgBox{
+    transform:rotateY(-135deg);
+}
+
+.bark{
+    position:absolute;
+    inset:0;
+    background:#e0e1dc;
+    opacity:0;
+    transition:.7s;
+}
+
+.card:hover .bark{
+    opacity:1;
+    box-shadow:300px 200px 100px rgba(0,0,0,.4) inset;
+}
+
+.imgBox img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.details{
+    position:absolute;
+    inset:0;
+    padding:20px;
+    z-index:-1;
+}
+
+.details h2{
+    margin:5px 0;
+    font-size:42px;
+    font-family:'Amatic SC', cursive;
+}
+
+.color1{
+    color:#ff6c47;
+}
+
+.color2{
+    color:#16aadb;
+}
+
+.details p{
+    margin:4px 0;
+    font-size:14px;
+    line-height:1.5;
+    text-align:left;
+}
+
+.text-right{
+    margin-top:10px;
+    text-align:right !important;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.next-btn{
+    margin-top:20px;
+    padding:12px 24px;
+    border:none;
+    border-radius:30px;
+
+    background:#16aadb;
+    color:#fff;
+
+    font-size:18px;
+    font-family:'Indie Flower', cursive;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.next-btn:hover{
+    transform:scale(1.1);
+    background:#0f8db6;
+}
+
+/* =========================
+   PAGE 5
+========================= */
+
+#page5{
+    overflow:hidden;
+}
+
+.cake-page{
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    min-height:100vh;
+    padding-top:60px;
+}
+
+/* TITLE */
+
+.birthday-title{
+    position:relative;
+    z-index:5;
+
+    margin-bottom:120px;
+
+    font-size:90px;
+    font-family:'Amatic SC', cursive;
+    color:#d33;
+
+    text-shadow:
+    0 0 10px rgba(255,255,255,.7),
+    0 0 20px rgba(255,100,100,.5);
+}
+
+/* CAKE */
+
+.cake{
+    position:relative;
+    width:250px;
+    margin-top:20px;
+}
+
+/* LAYERS */
+
+.layer{
+    position:relative;
+    margin:auto;
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.layer1{
+    width:250px;
+    height:70px;
+    background:#6b3e26;
+}
+
+.layer2{
+    width:210px;
+    height:60px;
+    margin-top:-5px;
+    background:#fff;
+}
+
+.layer3{
+    width:170px;
+    height:50px;
+    margin-top:-5px;
+    background:#ff8fb1;
+}
+
+/* CANDLES */
+
+.candles{
+    position:absolute;
+    top:-70px;
+    left:50%;
+
+    display:flex;
+    gap:25px;
+
+    transform:translateX(-50%);
+}
+
+.candle{
+    position:relative;
+    width:12px;
+    height:60px;
+
+    background:#4da6ff;
+    border-radius:4px;
+}
+
+/* FLAME */
+
+.flame{
+    position:absolute;
+    top:-18px;
+    left:50%;
+
+    width:14px;
+    height:20px;
+
+    background:orange;
+    border-radius:50%;
+
+    transform:translateX(-50%);
+    animation:flicker .15s infinite alternate;
+
+    box-shadow:0 0 15px yellow;
+}
+
+@keyframes flicker{
+
+    0%{
+        transform:translateX(-50%) scale(1);
+        background:orange;
+    }
+
+    50%{
+        transform:translateX(-50%) scale(1.2);
+        background:gold;
+    }
+
+    100%{
+        transform:translateX(-50%) scale(.85);
+        background:#ff6600;
+    }
+}
+
+/* =========================
+   FIREWORKS
+========================= */
+
+.firework{
+    position:absolute;
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+    animation:explode 1.5s infinite ease-out;
+}
+
+.firework1{
+    top:15%;
+    left:20%;
+    background:#ff0;
+
+    box-shadow:
+    0 -40px #ff0,
+    0 40px #ff0,
+    40px 0 #ff0,
+    -40px 0 #ff0,
+    30px 30px #ff0,
+    -30px -30px #ff0,
+    30px -30px #ff0,
+    -30px 30px #ff0;
+}
+
+.firework2{
+    top:25%;
+    right:20%;
+    background:#00e5ff;
+    animation-delay:.5s;
+
+    box-shadow:
+    0 -40px #00e5ff,
+    0 40px #00e5ff,
+    40px 0 #00e5ff,
+    -40px 0 #00e5ff,
+    30px 30px #00e5ff,
+    -30px -30px #00e5ff,
+    30px -30px #00e5ff,
+    -30px 30px #00e5ff;
+}
+
+.firework3{
+    top:45%;
+    left:10%;
+    background:#ff4fa3;
+    animation-delay:1s;
+
+    box-shadow:
+    0 -35px #ff4fa3,
+    0 35px #ff4fa3,
+    35px 0 #ff4fa3,
+    -35px 0 #ff4fa3,
+    25px 25px #ff4fa3,
+    -25px -25px #ff4fa3,
+    25px -25px #ff4fa3,
+    -25px 25px #ff4fa3;
+}
+
+@keyframes explode{
+
+    0%{
+        transform:scale(0);
+        opacity:1;
+    }
+
+    70%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(1.4);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     PAGE 2
+========================= -->
+
+<div id="page2" class="page active">
+
+    <div class="card">
+
+        <div class="imgBox">
+
+            <div class="bark"></div>
+
+            <img 
+            src="https://assets.cardly.net/production/artwork/8/9/8/898e1f13-0dfa-6d62-664e-070005c2f046/detail/cute-happy-birthday-dog-p1-r2.webp" 
+            alt="Birthday Image">
+
+        </div>
+
+        <div class="details">
+
+            <h2 class="color1">Happy Birthday</h2>
+            <h2 class="color2">To You</h2>
+
+            <p>Happy birthday sayangkuu,</p>
+            <p>today is your special day,</p>
+            <p>thank you for every moment,</p>
+            <p>every laugh and every story.</p>
+            <p>im really happy to know u.</p>
+            <p>please stay healthy and happy always.</p>
+            <p>once again...</p>
+            <p>happy birthday ❤️</p>
+
+            <p class="text-right">- pangeran atha</p>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="showPage('page2','page3')">
+        Next ❤️
+    </button>
+
+</div>
+
+<!-- =========================
+     PAGE 3
+========================= -->
+
+<div id="page3" class="page">
+
+    <div class="card">
+
+        <div class="imgBox">
+
+            <div class="bark"></div>
+
+            <img 
+            src="https://assets.cardly.net/production/artwork/8/9/8/898e1f13-0dfa-6d62-664e-070005c2f046/detail/cute-happy-birthday-dog-p1-r2.webp" 
+            alt="Birthday Image">
+
+        </div>
+
+        <div class="details">
+
+            <h2 class="color1">For You</h2>
+            <h2 class="color2">My Favorite Person</h2>
+
+            <p>i hope your smile never fades,</p>
+            <p>and your days always feel beautiful.</p>
+            <p>thank you for being here.</p>
+            <p>thank you for making life brighter.</p>
+            <p>you deserve all happiness in this world.</p>
+            <p>never forget how special you are ❤️</p>
+
+            <p class="text-right">- pangeran atha</p>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="showPage('page3','page5')">
+        Next 🎂
+    </button>
+
+</div>
+
+<!-- =========================
+     PAGE 5
+========================= -->
+
+<div id="page5" class="page">
+
+    <div class="firework firework1"></div>
+    <div class="firework firework2"></div>
+    <div class="firework firework3"></div>
+
+    <div class="cake-page">
+
+        <h1 class="birthday-title">
+            HAPPY BIRTHDAY
+        </h1>
+
+        <div class="cake">
+
+            <!-- CANDLES -->
+            <div class="candles">
+
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+
+            </div>
+
+            <!-- CAKE -->
+            <div class="layer layer3"></div>
+            <div class="layer layer2"></div>
+            <div class="layer layer1"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     MUSIC
+========================= -->
+
+<audio id="music" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- =========================
+     SCRIPT
+========================= -->
+
+<script>
+
+const music = document.getElementById("music");
+
+/* =========================
+   AUTOPLAY FIX
+========================= */
+
+function playMusic(){
+
+    music.play().catch(() => {});
+
+    document.removeEventListener("click", playMusic);
+    document.removeEventListener("touchstart", playMusic);
+}
+
+document.addEventListener("click", playMusic);
+document.addEventListener("touchstart", playMusic);
+
+/* =========================
+   PAGE SWITCH
+========================= */
+
+function showPage(currentPage, nextPage){
+
+    document
+    .getElementById(currentPage)
+    .classList.remove("active");
+
+    document
+    .getElementById(nextPage)
+    .classList.add("active");
+}
+
+</script>
+
+</body>
+</html> 
