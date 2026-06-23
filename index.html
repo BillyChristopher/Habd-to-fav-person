@@ -45,21 +45,24 @@ body{
 ========================= */
 
 .card{
-    position:relative;
-    width:300px;
-    height:400px;
-    margin:40px auto 20px;
-    color:#013243;
-    background:#e0e1dc;
+    position: relative;
 
-    transform-style:preserve-3d;
-    transform:perspective(2000px);
+    width: min(90vw, 300px);
+    aspect-ratio: 3 / 4;
+
+    margin: 40px auto 20px;
+
+    color: #013243;
+    background: #e0e1dc;
+
+    transform-style: preserve-3d;
+    transform: perspective(2000px);
 
     box-shadow:
-    inset 400px 0 50px rgba(0,0,0,.5),
-    20px 0 60px rgba(0,0,0,.5);
+        inset 400px 0 50px rgba(0,0,0,.5),
+        20px 0 60px rgba(0,0,0,.5);
 
-    transition:1.5s;
+    transition: 1.5s;
 }
 
 .card:hover{
